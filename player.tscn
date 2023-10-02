@@ -8,6 +8,7 @@ radius = 24.0
 height = 48.0
 
 [node name="Player" type="CharacterBody2D"]
+floor_snap_length = 2.0
 script = ExtResource("1_cuhup")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
