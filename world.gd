@@ -6,7 +6,6 @@ extends Node2D
 
 func _ready():
 	polygon2d.polygon = collision_polygon_2d.polygon
-	print("Hello World")
 	
 func _process(_delta):
 	pass
