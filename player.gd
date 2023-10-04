@@ -1,6 +1,8 @@
 #template for Character Body 2d
-#Stopped tutorial at 38:55 mark
+#Stopped tutorial at 49:00 mark
 extends CharacterBody2D
+
+@onready var animated_sprite_2d = $AnimatedSprite2D
 
 #Variables not from the template
 const ACCELERATION = 800
@@ -34,6 +36,18 @@ func handle_acceleration(direction, delta):
 	if direction != 0: #Ie is a direction key being pressed
 		velocity.x = move_toward(velocity.x, SPEED * direction, ACCELERATION * delta)
 
+func update_animations(direction):
+	#updates animation based on player velocity
+	#following if-else tree works only in this order
+	if direction != 0: #player is moving
+		animated_sprite_2d.flip_h = (direction < 0) #flips sprite in direction of movement
+		animated_sprite_2d.play("run")
+	else:
+		animated_sprite_2d.play("idle")
+	
+	if not is_on_floor():
+		animated_sprite_2d.play("jump")
+
 #physics process updates a set amount of times per second; default is 60fps
 func _physics_process(delta):
 
@@ -48,5 +62,7 @@ func _physics_process(delta):
 	handle_acceleration(direction, delta)
 	
 	apply_friction(direction, delta)
+
+	update_animations(direction)
 
 	move_and_slide()
