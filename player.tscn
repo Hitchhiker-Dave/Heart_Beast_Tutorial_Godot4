@@ -77,9 +77,9 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k2jte"]
-radius = 24.0
-height = 64.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w1b60"]
+radius = 16.0
+height = 60.0
 
 [node name="Player" type="CharacterBody2D"]
 floor_snap_length = 2.0
@@ -92,10 +92,10 @@ animation = &"idle"
 frame_progress = 0.898151
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -8)
+position = Vector2(0, -7.5)
 scale = Vector2(0.25, 0.25)
-shape = SubResource("CapsuleShape2D_k2jte")
+shape = SubResource("CapsuleShape2D_w1b60")
 
 [node name="CoyoteJumpTimer" type="Timer" parent="."]
-wait_time = 0.2
+wait_time = 1.1
 one_shot = true

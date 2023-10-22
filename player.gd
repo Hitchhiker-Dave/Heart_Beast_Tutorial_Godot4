@@ -28,7 +28,6 @@ func apply_gravity(delta):
 		velocity.y += gravity * delta 
 
 func handle_jump():
-	
 	if is_on_floor() or coyote_jump_timer.time_left > 0.0:
 		if Input.is_action_just_pressed("ui_accept"):
 			velocity.y = JUMP_VELOCITY #move and slide applies delta when changing velocity
@@ -72,15 +71,16 @@ func _physics_process(delta):
 	
 	apply_friction(direction, delta)
 
-	#what if I somehow detect if player is next to a floor x distance away?
-	var was_on_floor = is_on_floor() #detects if player was on floor during last frame
+	#check if player was on floor before the move_and_slide update for Coyote Time
+	var was_on_floor = is_on_floor() 
 
 	update_animations(direction)
-	#coyote time; problem: because I am using a circle collider, there's an issue w/ when coyote time activates
+
+	move_and_slide()
+	
+	#Coyote Time Handler
 	var just_left_ledge = was_on_floor and not is_on_floor() and velocity.y >= 0
 	if just_left_ledge:
 		count += 1
 		print("Coyote Time", count)
-		coyote_jump_timer.start()	
-
-	move_and_slide()
+		coyote_jump_timer.start(1)	
