@@ -1,5 +1,5 @@
 #template for Character Body 2d
-#Stopped tutorial at 49:00 mark
+##rewatch Custom Resources vid; it's easy to understand I just didn't follow from the start like a fool
 extends CharacterBody2D
 
 @onready var animated_sprite_2d = $AnimatedSprite2D
@@ -12,7 +12,7 @@ const FRICTION = 1000
 #template variables
 const SPEED = 100.0
 const JUMP_VELOCITY = -250.0
-var count = 0
+
 #Custom Var
 # var was_on_floor
 # var just_left_ledge
@@ -81,6 +81,4 @@ func _physics_process(delta):
 	#Coyote Time Handler
 	var just_left_ledge = was_on_floor and not is_on_floor() and velocity.y >= 0
 	if just_left_ledge:
-		count += 1
-		print("Coyote Time", count)
-		coyote_jump_timer.start(1)	
+		coyote_jump_timer.start()	

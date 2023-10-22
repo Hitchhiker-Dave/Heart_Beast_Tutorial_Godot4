@@ -82,7 +82,7 @@ radius = 16.0
 height = 60.0
 
 [node name="Player" type="CharacterBody2D"]
-floor_snap_length = 2.0
+floor_snap_length = 3.0
 script = ExtResource("1_cuhup")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -97,5 +97,5 @@ scale = Vector2(0.25, 0.25)
 shape = SubResource("CapsuleShape2D_w1b60")
 
 [node name="CoyoteJumpTimer" type="Timer" parent="."]
-wait_time = 1.1
+wait_time = 0.1
 one_shot = true
