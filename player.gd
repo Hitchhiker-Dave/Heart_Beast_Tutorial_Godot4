@@ -3,6 +3,7 @@
 extends CharacterBody2D
 
 @onready var animated_sprite_2d = $AnimatedSprite2D
+@onready var coyote_jump_timer = $CoyoteJumpTimer
 
 #Variables not from the template
 const ACCELERATION = 800
@@ -11,20 +12,28 @@ const FRICTION = 1000
 #template variables
 const SPEED = 100.0
 const JUMP_VELOCITY = -250.0
+var count = 0
+#Custom Var
+# var was_on_floor
+# var just_left_ledge
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+
+func _ready():
+	pass
 
 func apply_gravity(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta 
 
 func handle_jump():
-	if is_on_floor():
+	
+	if is_on_floor() or coyote_jump_timer.time_left > 0.0:
 		if Input.is_action_just_pressed("ui_accept"):
 			velocity.y = JUMP_VELOCITY #move and slide applies delta when changing velocity
 			
-	else: #Handling for Short Hops
+	if not is_on_floor(): #Handling for Short Hops; not an else statement due to coyote time condition above
 		if Input.is_action_just_released("ui_accept") and velocity.y < JUMP_VELOCITY / 2: #If in the air and the jump key is released
 			velocity.y = JUMP_VELOCITY / 2
 
@@ -63,6 +72,15 @@ func _physics_process(delta):
 	
 	apply_friction(direction, delta)
 
+	#what if I somehow detect if player is next to a floor x distance away?
+	var was_on_floor = is_on_floor() #detects if player was on floor during last frame
+
 	update_animations(direction)
+	#coyote time; problem: because I am using a circle collider, there's an issue w/ when coyote time activates
+	var just_left_ledge = was_on_floor and not is_on_floor() and velocity.y >= 0
+	if just_left_ledge:
+		count += 1
+		print("Coyote Time", count)
+		coyote_jump_timer.start()	
 
 	move_and_slide()
