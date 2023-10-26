@@ -2,26 +2,25 @@
 ##rewatch Custom Resources vid; it's easy to understand I just didn't follow from the start like a fool
 extends CharacterBody2D
 
-@onready var animated_sprite_2d = $AnimatedSprite2D
-@onready var coyote_jump_timer = $CoyoteJumpTimer
-
-#Variables not from the template
-const ACCELERATION = 800
-const FRICTION = 1000
-
-#template variables
-const SPEED = 100.0
-const JUMP_VELOCITY = -250.0
-
-#Custom Var
-# var was_on_floor
-# var just_left_ledge
+@export var movement_data : PlayerMovementData
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
+@onready var animated_sprite_2d = $AnimatedSprite2D
+@onready var coyote_jump_timer = $CoyoteJumpTimer
+
+#Movement Variables
+@onready var ACCELERATION = movement_data.acceleration
+@onready var FRICTION = movement_data.friction
+@onready var SPEED = movement_data.speed
+@onready var JUMP_VELOCITY = movement_data.jump_velocity
+
 func _ready():
-	pass
+	print(ACCELERATION)
+	print(FRICTION)
+	print(SPEED)
+	print(JUMP_VELOCITY)
 
 func apply_gravity(delta):
 	if not is_on_floor():
