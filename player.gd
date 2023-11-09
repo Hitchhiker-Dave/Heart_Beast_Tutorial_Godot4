@@ -1,6 +1,5 @@
 #Modded template for Character Body 2d
-##Double Jump vid: 7:53 mark
-#not quite working, only substantial change was how I did air acceleration
+## Bookmark: Part 6
 extends CharacterBody2D
 
 @export var movement_data : PlayerMovementData
@@ -12,6 +11,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var animated_sprite_2d = $AnimatedSprite2D
 @onready var coyote_jump_timer = $CoyoteJumpTimer
+@onready var starting_position = global_position
 
 #Movement Variables
 @onready var ACCELERATION = movement_data.acceleration
@@ -48,7 +48,8 @@ func handle_jump():
 		if Input.is_action_just_pressed("ui_accept"):
 			velocity.y = JUMP_VELOCITY #move and slide applies delta when changing velocity
 			
-	if not is_on_floor(): #Handling for Short Hops; not an else statement due to coyote time condition above
+	#Must be an elif so that coyote time isn't overridden by the double jump
+	elif not is_on_floor(): #Handling for Short Hops; not an else statement due to coyote time condition above
 		if Input.is_action_just_released("ui_accept") and velocity.y < JUMP_VELOCITY / 2: #If in the air and the jump key is released
 			velocity.y = JUMP_VELOCITY / 2
 			
@@ -110,3 +111,8 @@ func _physics_process(delta):
 		coyote_jump_timer.start()	
 
 	just_wall_jumped = false
+
+#detect hazard; do not need to specifiy area as long as HazardDetector node looks towards the hazard layer
+func _on_hazard_detector_area_entered(area):
+	#basically simulate instant death by "respawning" player at the starting position
+	global_position = starting_position
