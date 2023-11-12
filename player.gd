@@ -1,5 +1,5 @@
 #Modded template for Character Body 2d
-## Bookmark: Part 6
+## Bookmark: Part 8
 extends CharacterBody2D
 
 @export var movement_data : PlayerMovementData
