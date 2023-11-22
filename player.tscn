@@ -107,6 +107,10 @@ shape = SubResource("CapsuleShape2D_w1b60")
 wait_time = 0.1
 one_shot = true
 
+[node name="WallJumpTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -12)
 process_callback = 0
