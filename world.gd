@@ -1,5 +1,7 @@
 extends Node2D
 
+@export var next_level: PackedScene
+
 #accessing specific child nodes via code
 @onready var collision_polygon_2d = $StaticBody2D/CollisionPolygon2D
 @onready var polygon2d = $StaticBody2D/CollisionPolygon2D/Polygon2D
@@ -11,3 +13,10 @@ func _ready():
 func show_level_completed():
 	level_completed.show() #Toggle level complete screen from invisible to visible
 	get_tree().paused =true #Stop game from running
+	
+	#Move to next level
+	if not next_level is PackedScene: return #Check if there is a next level
+	await LevelTransition.fade_to_black() 
+	get_tree().change_scene_to_packed(next_level)
+	get_tree().paused =false #Give back player control
+	await LevelTransition.fade_from_black()
