@@ -50,15 +50,15 @@ func handle_jump():
 	if is_on_floor(): air_jump = true
 	
 	if is_on_floor() or coyote_jump_timer.time_left > 0.0:
-		#air_jump = true
 		
-		if Input.is_action_just_pressed("jump"):
+		if Input.is_action_pressed("jump"): #used instead of is_action_just pressed for jump buffering
 			velocity.y = JUMP_VELOCITY #move and slide applies delta when changing velocity
 			
 	#Must be an elif so that coyote time isn't overridden by the double jump
 	elif not is_on_floor(): #Handling for Short Hops; not an else statement due to coyote time condition above
 		if Input.is_action_just_released("jump") and velocity.y < JUMP_VELOCITY / 2: #If in the air and the jump key is released
 			velocity.y = JUMP_VELOCITY / 2
+			coyote_jump_timer.stop()
 			
 		#Double Jump
 		if Input.is_action_just_pressed('jump') and air_jump and not just_wall_jumped:
@@ -112,7 +112,7 @@ func _physics_process(delta):
 	if was_on_wall:
 		was_wall_normal = get_wall_normal()
 
-	update_animations(direction)
+	
 
 	move_and_slide()
 	
@@ -128,8 +128,10 @@ func _physics_process(delta):
 	var just_left_wall = was_on_wall and not is_on_wall()
 	if just_left_wall:
 		wall_jump_timer.start()
+		
+	update_animations(direction)
 
 #detect hazard; do not need to specifiy area as long as HazardDetector node looks towards the hazard layer
-func _on_hazard_detector_area_entered(area):
+func _on_hazard_detector_area_entered(_area):
 	#basically simulate instant death by "respawning" player at the starting position
 	global_position = starting_position

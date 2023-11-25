@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://bdk8vctr8b2mg"]
 
-[ext_resource type="PackedScene" uid="uid://c0b2l12gxrpb3" path="res://world.tscn" id="1_nax1i"]
-[ext_resource type="PackedScene" uid="uid://pxstnau1emlp" path="res://spikes.tscn" id="2_viorl"]
-[ext_resource type="PackedScene" uid="uid://dbe34lbggrck1" path="res://heart.tscn" id="3_gpsel"]
+[ext_resource type="PackedScene" uid="uid://c0b2l12gxrpb3" path="res://Scenes/world.tscn" id="1_nax1i"]
+[ext_resource type="PackedScene" uid="uid://pxstnau1emlp" path="res://Scenes/spikes.tscn" id="2_viorl"]
+[ext_resource type="PackedScene" uid="uid://dbe34lbggrck1" path="res://Scenes/heart.tscn" id="3_gpsel"]
 
 [node name="Level_2" instance=ExtResource("1_nax1i")]
 

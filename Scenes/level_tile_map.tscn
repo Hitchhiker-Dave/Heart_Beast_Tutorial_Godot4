@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://bmsevnlhgedh5"]
 
-[ext_resource type="Texture2D" uid="uid://oc0fo6fg4lw5" path="res://tileset.png" id="1_vicmi"]
+[ext_resource type="Texture2D" uid="uid://oc0fo6fg4lw5" path="res://sprites/tileset.png" id="1_vicmi"]
 [ext_resource type="Texture2D" uid="uid://cx15mkfgkscdf" path="res://slopes.png" id="2_6giho"]
 [ext_resource type="Texture2D" uid="uid://drua8oauxvr2e" path="res://slopes_flipped.png" id="3_v2hb0"]
 
